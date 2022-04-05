@@ -27,10 +27,10 @@ app.get("/api/hello", function (req, res) {
 
 // returns object with unix and utc keys
 app.get("/api/:date?", function (req, res) {
-  const date = new Date(req.params.date);
+  let paramDate = req.params.date ? new Date(req.params.date) : new Date();
   res.json({
-    unix: date.getTime(),
-    utc: date.toUTCString()
+    unix: paramDate.getTime(),
+    utc:  paramDate.toUTCString()
   });
 });
 
