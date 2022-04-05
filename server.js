@@ -28,8 +28,8 @@ app.get("/api/hello", function (req, res) {
 // returns object with unix and utc keys
 app.get("/api/:date?", function (req, res) {
   let paramDate = req.params.date || new Date();
-    
-  let convertedDate = paramDate.includes('-') ? paramDate : parseInt(paramDate);
+
+  let convertedDate = String(paramDate).includes('-') ? paramDate : parseInt(paramDate);
   convertedDate = new Date(convertedDate);
 
   if(isNaN(convertedDate)){
