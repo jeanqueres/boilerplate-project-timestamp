@@ -29,8 +29,9 @@ app.get("/api/hello", function (req, res) {
 app.get("/api/:date?", function (req, res) {
   let paramDate = req.params.date || new Date();
     
-  let convertedDate = paramDate.includes('-') ? new Date(paramDate) : new Date(parseInt(paramDate));
-  
+  let convertedDate = paramDate.includes('-') ? paramDate : parseInt(paramDate);
+  convertedDate = new Date(convertedDate);
+
   if(isNaN(convertedDate)){
     res.status(500).send({ error: "Invalid Date" });
   }
