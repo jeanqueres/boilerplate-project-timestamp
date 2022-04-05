@@ -31,13 +31,17 @@ app.get("/api/:date?", function (req, res) {
   
   if(!paramDate) return new Date()
     
-  paramDate = paramDate.includes('-') ? new Date(paramDate) : new Date(parseInt(paramDate));
+  let convertedDate = paramDate.includes('-') ? new Date(paramDate) : new Date(parseInt(paramDate));
   
+  if(isNaN(convertedDate)){
+    res.status(500).send({ error: "Invalid Date" });
+  }
+
   res.json({
-    unix: paramDate.getTime(),
-    utc:  paramDate.toUTCString()
+    unix: convertedDate.getTime(),
+    utc:  convertedDate.toUTCString()
   });
-  
+
 });
 
 
