@@ -27,19 +27,27 @@ app.get("/api/hello", function (req, res) {
 
 // returns object with unix and utc keys
 app.get("/api/:date?", function (req, res) {
-  let paramDate = req.params?.date || new Date().toISOString();
-  paramDate = decodeURI(paramDate);
-  let convertedDate = paramDate.includes('-') ? paramDate : parseInt(paramDate);
-  
-  let date = new Date(convertedDate);
-  
-  if(isNaN(date)){
-    res.status(500).send({ error: "Invalid Date" });
+  let paramDate = new Date();
+  if(!req.params.date){
+    res.json({
+      unix: paramDate.getTime(),
+      utc:  paramDate.toUTCString()
+    });
+  }
+
+  paramDate = decodeURI(req.params.date);
+  if(!isNaN(paramDate)){ // Miliseconds
+    paramDate = new Date(parseInt(paramDate));
+  }
+  else {
+    paramDate =  new Date(paramDate);
+    if(new Date(paramDate) == 'Invalid Date')
+      res.status(500).send({ error: "Invalid Date" });
   }
 
   res.json({
-    unix: date.getTime(),
-    utc:  date.toUTCString()
+    unix: paramDate.getTime(),
+    utc:  paramDate.toUTCString()
   });
 
 });
