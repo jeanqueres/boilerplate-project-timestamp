@@ -27,9 +27,7 @@ app.get("/api/hello", function (req, res) {
 
 // returns object with unix and utc keys
 app.get("/api/:date?", function (req, res) {
-  let paramDate = req.params.date;
-  
-  if(!paramDate) return new Date()
+  let paramDate = req.params.date || new Date();
     
   let convertedDate = paramDate.includes('-') ? new Date(paramDate) : new Date(parseInt(paramDate));
   
