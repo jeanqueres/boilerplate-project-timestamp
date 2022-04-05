@@ -27,11 +27,12 @@ app.get("/api/hello", function (req, res) {
 
 // returns object with unix and utc keys
 app.get("/api/:date?", function (req, res) {
-  let paramDate = req.params.date || new Date();
+  let paramDate = req.params?.date || new Date();
 
   let convertedDate = String(paramDate).includes('-') ? paramDate : parseInt(paramDate);
   convertedDate = new Date(convertedDate);
 
+  console.log('isnan', isNaN(convertedDate));
   if(isNaN(convertedDate)){
     res.status(500).send({ error: "Invalid Date" });
   }
