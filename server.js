@@ -25,6 +25,10 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// your first API endpoint... 
+app.get("/api/:date", function (req, res) {
+  res.json({unix: new Date(req.params.date)});
+});
 
 
 // listen for requests :)
