@@ -32,6 +32,7 @@ app.get("/api/:date?", function (req, res) {
   let convertedDate = String(paramDate).includes('-') ? paramDate : parseInt(paramDate);
   convertedDate = new Date(convertedDate);
 
+  console.log('convertedDate', convertedDate);
   console.log('isnan', isNaN(convertedDate));
   if(isNaN(convertedDate)){
     res.status(500).send({ error: "Invalid Date" });
